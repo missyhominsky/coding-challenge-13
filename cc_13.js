@@ -28,6 +28,36 @@ function addEmployeeCard(name, position) {
     card.appendChild(positionElement);
     card.appendChild(removeButton);
 
+    //Task 5- Inline Editing 
+      // Add double-click event listener to allow editing
+      card.addEventListener('dblclick', () => {
+        const nameInput = document.createElement('input');
+        nameInput.value = nameElement.textContent;  // Pre-populate the name input
+        const positionInput = document.createElement('input');
+        positionInput.value = positionElement.textContent;  // Pre-populate the position input
+
+        // Create a "Save" button to update the card
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'Save';
+
+        // Event listener for the "Save" button
+        saveButton.addEventListener('click', () => {
+
+            nameElement.textContent = nameInput.value;
+            positionElement.textContent = positionInput.value;
+
+            // Remove the inputs and Save button, returning to static content
+            card.removeChild(nameInput);
+            card.removeChild(positionInput);
+            card.removeChild(saveButton);
+        });
+
+    
+        card.appendChild(nameInput);
+        card.appendChild(positionInput);
+        card.appendChild(saveButton);
+    });
+
     // Add the card to the container
     container.appendChild(card);
 }
