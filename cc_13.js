@@ -54,9 +54,12 @@ function addEmployeeCard(name, position) {
     removeButton.textContent = 'Remove';
 
     // Add event to remove the employee card when the button is clicked
-    removeButton.onclick = function () {
+    removeButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // prevents the click event from bubbling (task 4)
         container.removeChild(card);
-    };
+        console.log(`Removed card for ${name}`);
+    });
+    
 
     // Append name, position, and button to the card
     card.appendChild(nameElement);
@@ -67,9 +70,15 @@ function addEmployeeCard(name, position) {
     container.appendChild(card);
 }
 
-// Adding test employee cards
-addEmployeeCard('Timmy Thick', 'Nurse');
-addEmployeeCard('Sabrina Bears', 'Marketing Manager');
+// Task 4- Event Bubbling
+const container = document.getElementById('employeeContainer');
+container.addEventListener('click', (event) => {
+    // Check if the clicked element is a card
+    if (event.target.classList.contains('employee-card')) {
+        console.log(`Employee card clicked: ${event.target.querySelector('h2').textContent}`);
+    }
+});
+
 addEmployeeCard('Emily Johnson', 'Dancer');
 
 // Function for Bulk Update
